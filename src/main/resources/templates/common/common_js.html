@@ -1,0 +1,10 @@
+<layui-vue th:fragment="commonJs">
+<script th:src="@{/static/layui/vue.js}"></script>
+<script th:inline="javascript">
+  var basePath = [[${#httpServletRequest.getScheme() + "://" + #httpServletRequest.getServerName() + ":" + #httpServletRequest.getServerPort() + #httpServletRequest.getContextPath()}]];
+  var userid = [[${session.userid}]];
+</script>
+<script type="application/javascript" th:src="@{/static/layui/layui.js}"></script>
+<script type="application/javascript" th:src="@{/static/chat/js/recorder.js}"></script>
+<script type="application/javascript" th:src="@{/static/layui/jquery.min.js}"></script>
+</layui-vue>

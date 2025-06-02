@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <title>
+        群信息编辑页面
+    </title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" th:href="@{/assets/admin/css/font.css}">
+    <link rel="stylesheet" th:href="@{/assets/admin/css/xadmin.css}">
+    <script th:src="@{/assets/admin/lib/layui/layui.js}" charset="utf-8"></script>
+    <script type="text/javascript" th:src="@{/assets/admin/js/xadmin.js}"></script>
+    <!--[if lt IE 9]>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-body ">
+
+                    <form class="layui-form"> <!-- 提示：如果你不想用form，你可以换成div等任何一个普通元素 -->
+                        <input type="hidden" name="id" th:value="${user == null?'':user.id}"/>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">用户名</label>
+                            <div class="layui-input-inline">
+                                <input type="text" th:disabled="${user !=null}" th:value="${user == null?'':user.username}" name="username" required lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input" id="username">
+                            </div>
+                            <div class="layui-form-mid" id="username-tip"></div>
+                        </div>
+                        <div class="layui-form-item" th:if="${user == null}">
+                            <label class="layui-form-label">密码</label>
+                            <div class="layui-input-inline">
+                                <input type="password" name="password" required lay-verify="password" placeholder="请输入密码" autocomplete="off" class="layui-input" id="password">
+                            </div>
+                            <div class="layui-form-mid" id="password-tip"></div>
+                        </div>
+                        <div class="layui-form-item" th:if="${user == null}">
+                            <label class="layui-form-label">确认密码</label>
+                            <div class="layui-input-inline">
+                                <input type="password" name="rePassword" required lay-verify="rePassword" placeholder="请确认密码" autocomplete="off" class="layui-input" id="rePassword">
+                            </div>
+                            <div class="layui-form-mid" id="rePassword-tip"></div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">姓名</label>
+                            <div class="layui-input-inline">
+                                <input type="text" th:value="${user == null?'':user.name}" name="name" lay-verify="" placeholder="请输入您的姓名" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">联系方式</label>
+                            <div class="layui-input-inline">
+                                <input type="text" th:value="${user == null?'':user.telPhone}" name="telPhone" lay-verify="" lay-reqText="提示文本" placeholder="请输入您的联系方式" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">QQ</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="qq" th:value="${user == null?'':user.qq}" lay-verify="" placeholder="请输入您的QQ号码" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">邮箱</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="email" th:value="${user == null?'':user.email}" lay-verify="" placeholder="请输入您的邮箱地址" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">单选框</label>
+                            <div class="layui-input-block">
+                                <input type="radio" name="sex" value="男" title="男" th:checked="${user == null?'':user.sex} eq '男'">
+                                <input type="radio" name="sex" value="女" title="女" th:checked="${user == null?'':user.sex} eq '女'">
+                            </div>
+                        </div>
+<!--                        <div class="layui-form-item">-->
+<!--                            <label class="layui-form-label">下拉选择框</label>-->
+<!--                            <div class="layui-input-block">-->
+<!--                                <select name="interest" lay-filter="aihao">-->
+<!--                                    <option value="0">写作</option>-->
+<!--                                    <option value="1">阅读</option>-->
+<!--                                </select>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="layui-form-item">-->
+<!--                            <label class="layui-form-label">复选框</label>-->
+<!--                            <div class="layui-input-block">-->
+<!--                                <input type="checkbox" name="like[write]" title="写作">-->
+<!--                                <input type="checkbox" name="like[read]" title="阅读">-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="layui-form-item">-->
+<!--                            <label class="layui-form-label">开关关</label>-->
+<!--                            <div class="layui-input-block">-->
+<!--                                <input type="checkbox" lay-skin="switch">-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="layui-form-item">-->
+<!--                            <label class="layui-form-label">开关开</label>-->
+<!--                            <div class="layui-input-block">-->
+<!--                                <input type="checkbox" checked lay-skin="switch">-->
+<!--                            </div>-->
+<!--                        </div>-->
+                        <div class="layui-form-item layui-form-text">
+                            <label class="layui-form-label">自我介绍</label>
+                            <div class="layui-input-block">
+                                <textarea name ="aboutMe" placeholder="请输入内容" class="layui-textarea" th:text="${user==null?'':user.aboutMe}"></textarea>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-input-block">
+                                <button class="layui-btn" lay-submit lay-filter="add" th:if="${user == null}">立即提交</button>
+                                <button class="layui-btn" lay-submit lay-filter="update" th:if="${user != null}">更新信息</button>
+                                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                            </div>
+                        </div>
+                        <!-- 更多表单结构排版请移步文档左侧【页面元素-表单】一项阅览 -->
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script th:replace="systemCommon/HarinCommon :: commonJs"></script>
+<script th:src="@{/assets/admin/js/jquery.min.js}"></script>
+<script>
+   $(function(){
+       layui.use('form', function () {
+           form = layui.form;
+            //校验
+           form.verify({
+               password : function(value,item){ //value：表单的值、item：表单的DOM对象
+                   if(isEmpty(value)){
+                       return "密码不能为空";
+                   }
+                   let flag = passwordValidate(value);
+                   if(!flag){
+                       return "密码需由大写、小写、数字、特殊符号组成，且不少于8位";
+                   }
+               },
+               rePassword :function(value,item){  //前面的参数用于需要校验的元素中 使用 lay-verify="rePassword"
+                   if(isEmpty(value)){
+                       return "请确认密码";
+                   }
+                   let password = $("#password").val();
+                   if(value !== password){
+                       return "两次密码不一致！";
+                   }
+               }
+           });
+           //新增用户信息
+           form.on('submit(add)',function(obj){
+                $.ajax({
+                    url: serverUri +"/user/register",
+                    type:"post",
+                    contentType: 'application/json',
+                    data:JSON.stringify(obj.field),
+                    success:function(data){
+                        if (data.code == 200) {
+                            layer.alert(data.message, {icon: 6}, function (iIndex) {
+                                // 获得frame索引
+                                var index = parent.layer.getFrameIndex(window.name);
+                                //关闭当前frame
+                                parent.layer.close(index);
+                            });
+                        } else {
+                            layer.alert(data.message, {icon: 5}, function (iIndex) {
+                                // 获得frame索引
+                                var index = parent.layer.getFrameIndex(window.name);
+                                //关闭当前frame
+                                //parent.layer.close(index);
+                                layer.close(iIndex);
+                            });
+                        }
+                    }
+                })
+               return false;
+           });
+
+           //新增用户信息
+           form.on('submit(update)',function(obj){
+               let updateUser = {
+                   id:  obj.field.id,
+                   name: obj.field.name,
+                   telPhone : obj.field.telPhone,
+                   qq : obj.field.qq,
+                   email :  obj.field.email,
+                   sex :  obj.field.sex,
+                   aboutMe :  obj.field.aboutMe
+               };
+               $.ajax({
+                   url: serverUri +"/user/update",
+                   type:"post",
+                   contentType: 'application/json',
+                   data:JSON.stringify(updateUser),
+                   success:function(data){
+                       if (data.code == 200) {
+                           layer.alert(data.message, {icon: 6}, function (iIndex) {
+                               // 获得frame索引
+                               var index = parent.layer.getFrameIndex(window.name);
+                               //关闭当前frame
+                               parent.layer.close(index);
+                           });
+                       } else {
+                           layer.alert(data.message, {icon: 5}, function (iIndex) {
+                               // 获得frame索引
+                               var index = parent.layer.getFrameIndex(window.name);
+                               //关闭当前frame
+                               //parent.layer.close(index);
+                               layer.close(iIndex);
+                           });
+                       }
+                   }
+               })
+               return false;
+           });
+       });
+        //用户名失去焦点
+       $("#username").on("blur",function(event){
+           let usernameTip = $("#username-tip");
+           if(isEmpty(event.target.value)){
+               usernameTip.html("");
+               return ;
+           }
+          $.ajax({
+              url: serverUri + "/user/checkUsername",
+              type: "post",
+              data: {"username":event.target.value},
+              success:function(data){
+                  if(data.code == 210){
+                      usernameTip.css("color","#FF5722");
+                  }else if(data.code == 200){
+                      usernameTip.css("color","#5FB878");
+                  }
+                  usernameTip.html("");
+                  usernameTip.html(data.message);
+              }
+          })
+       });
+
+       $("#password").on("input",function(event){
+           let passwordTip = $("#password-tip");
+           let flag = passwordValidate(event.target.value);
+           if(!flag){
+               passwordTip.css("color","#FF5722");
+               passwordTip.html("密码需由大写、小写、数字、特殊符号组成，且不少于8位");
+           }else{
+               passwordTip.html("");
+           }
+       });
+
+       $("#rePassword").on("input",function(event){
+           let password = $("#password").val();
+           let rePasswordTip = $("#rePassword-tip");
+
+           if(event.target.value === password){
+               rePasswordTip.html("");
+           }else{
+               rePasswordTip.css("color","#FF5722");
+               rePasswordTip.html("两次密码不一致");
+           }
+
+       });
+   });
+   //校验
+   function passwordValidate(str){
+       var rC = {
+           lW:'[a-z]',//小写字母
+           uW:'[A-Z]',//大写字母
+           nW:'[0-9]',//汉字
+           sW:'[\\u0020-\\u002F\\u003A-\\u0040\\u005B-\\u0060\\u007B-\\u007E]'//特殊字符
+       };
+       function Reg(str, rStr){
+           var reg = new RegExp(rStr);
+           if(reg.test(str)) return true;
+           else return false;
+       }
+       if(str.length < 8){
+           return false;
+       }else{
+           var tR = {
+               l:Reg(str, rC.lW),
+               u:Reg(str, rC.uW),
+               n:Reg(str, rC.nW),
+               s:Reg(str, rC.sW)
+           };
+           // if((tR.l && tR.u && tR.n) || (tR.l && tR.u && tR.s) || (tR.s && tR.u && tR.n) || (tR.s && tR.l && tR.n)){
+           if(tR.l && tR.u && tR.n && tR.s){
+               //密码符合要求
+               return true;
+           }else{
+               //console.log(tR.l,tR.u,tR.n,tR.s);
+               return false;
+           }
+       }
+   }
+</script>
+</body>
+</html>

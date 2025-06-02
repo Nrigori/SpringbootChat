@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chat.mapper.ChatGroupUserMapMapper" >
+  <resultMap id="BaseResultMap" type="com.chat.bean.chat.ChatGroupUserMap" >
+    <result column="g_id" property="gId" jdbcType="INTEGER" />
+    <result column="u_id" property="uId" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    g_id, u_id
+  </sql>
+
+  <select id="selectGroupMember" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from group_user_map
+    where g_id = #{groupId,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectGroupUserMap" resultMap="BaseResultMap" parameterType="com.chat.bean.chat.ChatGroupUserMap">
+    select
+    <include refid="Base_Column_List" />
+    from group_user_map
+    where g_id = #{gId,jdbcType=INTEGER}
+          and u_id = #{uId,jdbcType=VARCHAR}
+  </select>
+
+  <insert id="insert" parameterType="com.chat.bean.chat.ChatGroupUserMap" >
+    insert into group_user_map (g_id, u_id)
+    values (#{gId,jdbcType=INTEGER}, #{uId,jdbcType=VARCHAR})
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.chat.bean.chat.ChatGroupUserMap" >
+    insert into group_user_map
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="gId != null" >
+        g_id,
+      </if>
+      <if test="uId != null" >
+        u_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="gId != null" >
+        #{gId,jdbcType=INTEGER},
+      </if>
+      <if test="uId != null" >
+        #{uId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>
